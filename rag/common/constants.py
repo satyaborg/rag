@@ -13,5 +13,6 @@ EMBED_PROVIDERS: List = [EmbedProvider.OPENAI, EmbedProvider.COHERE]
 LLM_MODELS: List = [LLMModel.MISTRAL, LLMModel.GPT35]
 RETRIEVAL_STRATEGIES: List = [rs.VECTOR, rs.BM25, rs.HYBRID]
 EVAL_MODEL: LLMModel = LLMModel.GPT4
-DATASET_PATH: str = "./data/"
+DATASET_PATH: str = "./data"
+STORE_PATH: str = "./store"
 QA_DATASET_PATH: str = "./qa_dataset/motor_insurance_eval_dataset.json"

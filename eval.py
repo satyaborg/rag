@@ -22,6 +22,7 @@ from rag.common.constants import (
     RETRIEVAL_STRATEGIES,
     EVAL_MODEL,
     DATASET_PATH,
+    STORE_PATH,
     QA_DATASET_PATH,
 )
 
@@ -31,8 +32,11 @@ from llama_index import ServiceContext
 
 # NOTE: make sure .env has all API keys as per README.md
 load_dotenv()
-
-logging.basicConfig(level=logging.INFO)
+logging.basicConfig(
+    level=logging.INFO,
+    format="%(asctime)s - %(levelname)s - %(message)s",
+    datefmt="%Y-%m-%d %H:%M:%S",
+)
 
 
 async def eval():
@@ -46,7 +50,7 @@ async def eval():
             doc_parser = DocParser(config=ParseConfig())
             docs = doc_parser.load_docs(DATASET_PATH)
 
-            print(f"Applying chunking strategy: {chunking_strategy} ..")
+            logging.info(f"Applying chunking strategy: {chunking_strategy} ..")
             nodes = doc_parser.get_nodes(docs=docs, chunking_strategy=chunking_strategy)
             logging.info(f"Number of nodes: {len(nodes)}")
 
@@ -75,12 +79,13 @@ async def eval():
                         logging.info(f"Starting evaluation: {slug}")
 
                         # 2. generate vector index from nodes
-                        store_dir = f"./store/{slug}"
-                        indexer = Indexer(llm=llm, embed_model=embed_model)
-                        vector_index = indexer.get_vector_index(
-                            nodes=nodes, store_dir=store_dir
+                        service_context = ServiceContext.from_defaults(
+                            llm=llm, embed_model=embed_model
                         )
-                        service_context = indexer.service_context
+                        indexer = Indexer(service_context)
+                        vector_index = indexer.get_vector_index(
+                            nodes=nodes, store_dir=f"{STORE_PATH}/{slug}"
+                        )
                         logging.info(f"Generated vector index ..")
 
                         # 3. create retriever and query engine

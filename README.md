@@ -44,7 +44,18 @@ A pipeline is a combination of any of the above.
 1. Clone this repository and change directory into it
 2. Install `poetry` and run `poetry install` to install all dependencies
 3. Activate the environment using `poetry shell`
-4. Run `python -m main` to execute the RAG pipelines and evaluate them
+4. Use `python -m main --query <enter your query>` for the RAG pipeline to respond to your query
+   For e.g.
+
+```
+$ python -m main --query "what is the best car insurance?"
+
+> According to the provided context, the "Comprehensive Plus Insurance" is the top cover offered, which includes loss or damage to your vehicle, up to 15 additional benefits, liability cover, and optional add-ons for an extra cost. However, the best car insurance for you would depend on your specific needs and circumstances. It's always a good idea to carefully review the coverage options and consider factors such as cost, deductibles, and coverage limits before making a decision.
+```
+
+> Note: If no additional args are provided, the default pipeline which is configured to the best combination as per the section [below](#observations) is used.
+
+4. Optionally, for RAG evalution, run: `python -m eval` to execute all available RAG pipelines and evaluate them
 
 Make sure to add a `.env` file at the root directory containing valid `OPENAI_API_KEY`, `COHERE_API_KEY`, `MISTRAL_API_KEY`.
 

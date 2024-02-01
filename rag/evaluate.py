@@ -21,7 +21,7 @@ class QADataset:
         path: str = "./qa_dataset/data.json",
     ) -> dict:
         """Generate synthetic QA dataset."""
-        qa_llm = OpenAI(model="gpt-4")
+        qa_llm = OpenAI(model="gpt-4")  # use GPT-4 as the gold standard
         qa_dataset = generate_question_context_pairs(
             nodes, llm=qa_llm, num_questions_per_chunk=num_questions_per_chunk
         )
