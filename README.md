@@ -1,8 +1,8 @@
 # ⛏️ Retrieval Augmented Generation (RAG) Pipeline & Evaluation
 
-RAG is the application of information retrieval technique to generative models (such as LLMs) to produce highly relevant grounded reponses, conditioned on some external dataset or knowledge base.
+RAG is the application of information retrieval techniques to generative models, such as LLMs, to produce relevant and grounded reponses, conditioned on some external dataset or knowledge base.
 
-Some key challenges with LLMs that are addressed by RAG:
+Some key challenges with LLMs that are addressed by RAG are:
 
 - Hallucinations
 - Adpatability, or lack of expert knowledge (e.g. internal company documentation)
@@ -42,9 +42,9 @@ A pipeline is a combination of any of the above.
 > Note: Tested on Ubuntu 20.04 with Python 3.11
 
 1. Clone this repository and change directory into it
-2. Install `poetry` and run `poetry install` to install all dependencies
+2. Install `poetry` and run `poetry install` to fetch all dependencies
 3. Activate the environment using `poetry shell`
-4. Use `python -m main --query <enter your query>` for the RAG pipeline to respond to your query
+4. Use `python -m main --query <query>` for the RAG pipeline to respond to your query
    For e.g.
 
 ```
@@ -53,19 +53,19 @@ $ python -m main --query "what is the best car insurance?"
 > According to the provided context, the "Comprehensive Plus Insurance" is the top cover offered, which includes loss or damage to your vehicle, up to 15 additional benefits, liability cover, and optional add-ons for an extra cost. However, the best car insurance for you would depend on your specific needs and circumstances. It's always a good idea to carefully review the coverage options and consider factors such as cost, deductibles, and coverage limits before making a decision.
 ```
 
-> Note: If no additional args are provided, the default pipeline which is configured to the best combination as per the section [below](#observations) is used.
+> Note: If no additional args are provided, the default pipeline is used which is configured to the best combination as per the section [below](#observations).
 
-4. Optionally, for RAG evalution, run: `python -m eval` to execute all available RAG pipelines and evaluate them
+4. Optionally, run: `python -m eval` to execute all available RAG pipelines for evaluation
 
 Make sure to add a `.env` file at the root directory containing valid `OPENAI_API_KEY`, `COHERE_API_KEY`, `MISTRAL_API_KEY`.
 
 ## QA Dataset
 
-GPT-4 was used to generate a synthetic dataset comprised of two questions per node/chunk as the ground truth. The dataset can be accessed under `qa_dataset/`.
+GPT-4 was used to generate a synthetic dataset comprised of two questions per node/chunk as the ground truth based on the documents. The dataset can be accessed under `qa_dataset/`.
 
 ## Evaluation
 
-> Note: Results will vary based on the data characteristics, dataset size, and other variables like chunk_size, similarity_top_k, and so on.
+> Note: Experiment results may vary based on the data characteristics, sample size, and other variables like chunk_size, similarity_top_k, and so on.
 
 ### Metrics
 
@@ -84,13 +84,13 @@ The following metrics were used to evaluate the pipelines for retrieval and resp
 
 2. Mistral medium on the whole is more faithful as compared to GPT-3.5-turbo. However, only one combination i.e. `gpt-3.5-turbo` with Cohere's `embed-english-v3.0`, using hybrid retrieval, scored perfectly on both faithfulness and relevancy.
 
-3. On retrieval strategies, the hybrid approach consistently outperforms the other two approaches.
+3. For retrieval strategies, the hybrid approach consistently outperforms the other two approaches.
 
 4. Keyword-based traditional strategies unsurprisingly perform the worst. However, they tend to augment vector-based methods and improve performance overall as per (3).
 
 Additionally, reranking methods can be employed to further boost performance.
 
-Below is the overall evaluation results as sorted by hit rate, MRR, faithfulness and relevancy:
+Below is the overall evaluation results as sorted by their hit rate, MRR, faithfulness and relevancy:
 
 | LLM            | Embedding              | Chunking Strategy | Retrieval Strategy | Hit Rate |      MRR | Faithfulness | Relevancy |
 | :------------- | :--------------------- | :---------------- | :----------------- | -------: | -------: | -----------: | --------: |
