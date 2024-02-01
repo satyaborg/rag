@@ -28,6 +28,7 @@ class Indexer:
             )
             return index
         else:
+            os.makedirs(store_dir, exist_ok=True)
             index = VectorStoreIndex(
                 nodes, service_context=self.service_context, storage_context=None
             )
