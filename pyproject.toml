@@ -1,0 +1,27 @@
+[tool.poetry]
+name = "rag"
+version = "0.1.0"
+description = ""
+authors = ["satya <satya.borg@gmail.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.11"
+pdfplumber = "^0.10.3"
+llama-index = "^0.9.39"
+openai = "^1.10.0"
+ipykernel = "^6.29.0"
+transformers = "^4.37.2"
+pydantic-settings = "^2.1.0"
+cohere = "^4.45"
+pandas = "^2.2.0"
+qdrant-client = "^1.7.1"
+python-dotenv = "^1.0.1"
+pypdf = "^4.0.1"
+mistralai = "^0.0.12"
+rank-bm25 = "^0.2.2"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
